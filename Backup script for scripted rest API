@@ -1,0 +1,217 @@
+        var res = [];
+        var json = request.body.data;
+        gs.log("IFSC Unified Backup : " + JSON.stringify(json)); //Daily Logs
+
+        for (var i = 0; i < json[0].backup_result.stdout_lines.length; i++) {
+
+            var stdout_line = json[0].backup_result.stdout_lines[i];
+            var values = stdout_line.split(" ");
+
+            var name = values[0];
+            var policy = values[1];
+            var scheduler = values[2];
+            var state = values[3];
+            var status = values[4];
+
+            //gs.log("Value 1: " + name+ " Value 2: " + policy+ " Value 3: " + scheduler+" Value 4: " + state+" Value 5: " + status);
+
+            if (json[0].backup_details == 'INFRA Network Security') {
+
+
+                var op = new GlideRecord('u_infra_backup_requests');
+                op.addEncodedQuery('u_type=Backup^u_sub_type=INFRA Network Security');
+                op.addQuery('u_name', name);
+                op.addQuery('u_policy_name', policy);
+                op.addQuery('u_scheduler', scheduler);
+                op.addQuery('u_state', state);
+                op.addQuery('u_status', status);
+                op.query();
+                if (op.next()) {
+
+                    op.u_name = name;
+                    op.u_policy_name = policy;
+                    op.u_scheduler = scheduler;
+                    op.u_state = state;
+                    op.u_cs = 'Infra';
+                    op.u_backup_status = 'Current';
+                    op.u_status = status;
+                    op.update();
+
+                } else {
+
+                    op.initialize();
+                    op.u_name = name;
+                    op.u_policy_name = policy;
+                    op.u_scheduler = scheduler;
+                    op.u_state = state;
+                    op.u_cs = 'Infra';
+                    op.u_backup_status = 'Current';
+                    op.u_status = status;
+                    op.u_type = 'Backup';
+                    op.u_sub_type = 'INFRA Network Security';
+                    op.insert();
+
+                }
+
+            } else if (json[0].backup_details == 'DR TRADING') {
+
+
+                var op1 = new GlideRecord('u_infra_backup_requests');
+                op1.addEncodedQuery('u_type=Backup^u_sub_type=DR TRADING');
+                op1.addQuery('u_name', name);
+                op1.addQuery('u_policy_name', policy);
+                op1.addQuery('u_scheduler', scheduler);
+                op1.addQuery('u_state', state);
+                op1.addQuery('u_status', status);
+                op1.query();
+                if (op1.next()) {
+
+                    op1.u_name = name;
+                    op1.u_policy_name = policy;
+                    op1.u_scheduler = scheduler;
+                    op1.u_state = state;
+                    op1.u_cs = 'Infra';
+                    op1.u_backup_status = 'Current';
+                    op1.u_status = status;
+                    op1.update();
+
+                } else {
+
+                    op1.initialize();
+                    op1.u_name = name;
+                    op1.u_policy_name = policy;
+                    op1.u_scheduler = scheduler;
+                    op1.u_state = state;
+                    op1.u_cs = 'Infra';
+                    op1.u_backup_status = 'Current';
+                    op1.u_status = status;
+                    op1.u_type = 'Backup';
+                    op1.u_sub_type = 'DR TRADING';
+                    op1.insert();
+
+                }
+            } else if (json[0].backup_details == 'PSM') {
+
+
+                var op2 = new GlideRecord('u_infra_backup_requests');
+                op2.addEncodedQuery('u_type=Backup^u_sub_type=PSM');
+                op2.addQuery('u_name', name);
+                op2.addQuery('u_policy_name', policy);
+                op2.addQuery('u_scheduler', scheduler);
+                op2.addQuery('u_state', state);
+                op2.addQuery('u_status', status);
+                op2.query();
+                if (op2.next()) {
+
+                    op2.u_name = name;
+                    op2.u_policy_name = policy;
+                    op2.u_scheduler = scheduler;
+                    op2.u_state = state;
+                    op2.u_cs = 'Infra';
+                    op2.u_backup_status = 'Current';
+                    op2.u_status = status;
+                    op2.update();
+
+                } else {
+
+                    op2.initialize();
+                    op2.u_name = name;
+                    op2.u_policy_name = policy;
+                    op2.u_scheduler = scheduler;
+                    op2.u_state = state;
+                    op2.u_cs = 'Infra';
+                    op2.u_backup_status = 'Current';
+                    op2.u_status = status;
+                    op2.u_type = 'Backup';
+                    op2.u_sub_type = 'PSM';
+                    op2.insert();
+
+                }
+            } else if (json[0].backup_details == 'RMAN DB') {
+
+
+
+                var op3 = new GlideRecord('u_infra_backup_requests');
+                op3.addEncodedQuery('u_type=Backup^u_sub_type=RMAN DB');
+                op3.addQuery('u_name', name);
+                op3.addQuery('u_policy_name', policy);
+                op3.addQuery('u_scheduler', scheduler);
+                op3.addQuery('u_state', state);
+                op3.addQuery('u_status', status);
+                op3.query();
+                if (op3.next()) {
+
+                    op3.u_name = name;
+                    op3.u_policy_name = policy;
+                    op3.u_scheduler = scheduler;
+                    op3.u_state = state;
+                    op3.u_cs = 'Infra';
+                    op3.u_backup_status = 'Current';
+                    op3.u_status = status;
+                    op3.update();
+
+                } else {
+
+                    op3.initialize();
+                    op3.u_name = name;
+                    op3.u_policy_name = policy;
+                    op3.u_scheduler = scheduler;
+                    op3.u_state = state;
+                    op3.u_cs = 'Infra';
+                    op3.u_backup_status = 'Current';
+                    op3.u_status = status;
+                    op3.u_type = 'Backup';
+                    op3.u_sub_type = 'RMAN DB';
+                    op3.insert();
+
+                }
+            } else if (json[0].backup_details == 'TRADING') {
+
+
+                var op4 = new GlideRecord('u_infra_backup_requests');
+                op4.addEncodedQuery('u_type=Backup^u_sub_type=TRADING');
+                op4.addQuery('u_name', name);
+                op4.addQuery('u_policy_name', policy);
+                op4.addQuery('u_scheduler', scheduler);
+                op4.addQuery('u_state', state);
+                op4.addQuery('u_status', status);
+                op4.query();
+                if (op4.next()) {
+
+                    op4.u_name = name;
+                    op4.u_policy_name = policy;
+                    op4.u_scheduler = scheduler;
+                    op4.u_state = state;
+                    op4.u_cs = 'Infra';
+                    op4.u_backup_status = 'Current';
+                    op4.u_status = status;
+                    op4.update();
+
+                } else {
+
+                    op4.initialize();
+                    op4.u_name = name;
+                    op4.u_policy_name = policy;
+                    op4.u_scheduler = scheduler;
+                    op4.u_state = state;
+                    op4.u_cs = 'Infra';
+                    op4.u_backup_status = 'Current';
+                    op4.u_status = status;
+                    op4.u_type = 'Backup';
+                    op4.u_sub_type = 'TRADING';
+                    op4.insert();
+
+                }
+            }
+        }
+
+
+    } catch (ex) {
+        // Catch and handle exceptions or errors
+        response.setStatus(500); // Set an appropriate HTTP status code for errors
+        response.setBody({
+            error: "An error occurred",
+            message: ex.getMessage() // Get the error message
+        });
+    }
+})(request, response);
